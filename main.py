@@ -2,19 +2,13 @@ import pickle
 
 import tensorflow as tf
 import numpy as np
-import pandas as pd
-from keras.preprocessing.image import ImageDataGenerator, load_img
-from keras.utils import to_categorical
-from sklearn.model_selection import train_test_split
-import matplotlib.pyplot as plt
-import random
 import os
 import cv2
 from tqdm import tqdm
 
 CATEGORIES = ("cats", "dogs")
-RES_X = 150
-RES_Y = 150
+RES_X = 50
+RES_Y = 50
 
 CATS_DIR = os.path.join(os.getcwd(), "cats")
 DOGS_DIR = os.path.join(os.getcwd(), "dogs")
@@ -50,10 +44,12 @@ for i, cat in enumerate(CATEGORIES):
             Y.append(build_output(i))
         except:
             print("King")
+
 X = np.array(X).reshape((-1, RES_X, RES_Y, 1))
+print(X)
 Y = np.array(Y)
 
 X = X / 255
 
-pickle.dump(X, open("pickles/X.pickle", "wb"))
-pickle.dump(Y, open("pickles/Y.pickle", "wb"))
+pickle.dump(X, open("pickles/X.pickle", "wb"), protocol=4)
+pickle.dump(Y, open("pickles/Y.pickle", "wb"), protocol=4)
